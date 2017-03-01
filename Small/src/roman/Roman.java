@@ -3,28 +3,29 @@ package roman;
 import java.util.Scanner;
 
 public class Roman {
-	public static final char[] NUMERALS = 	{'I', 'V', 'X', 'L', 'C'};//, 'D', 'M'};
+	public static final char[] NUMERALS = 	{'I', 'V', 'X', 'L', 'C', 'D', 'M'};
 	public static final char[] NUMERALS_REVERSE = Util.reverseOrder(NUMERALS);
-	public static final int[] VALUES = 		{  1,   5,  10,  50, 100};//, 500, 1000};
+	public static final int[] VALUES = 		{  1,   5,  10,  50, 100, 500, 1000};
 	public static final int[] VALUES_REVERSE = Util.reverseOrder(VALUES);
-	
+
 	public static void main(String[] args) {
-		
-//		Util.printArray(NUMERALS);
-//		Util.printArray(NUMERALS_REVERSE);
-//		Util.printArray(VALUES);
-//		Util.printArray(VALUES_REVERSE);
-		
-		
+
+		//		Util.printArray(NUMERALS);
+		//		Util.printArray(NUMERALS_REVERSE);
+		//		Util.printArray(VALUES);
+		//		Util.printArray(VALUES_REVERSE);
+
+		for (int i = 0;i<100;i++) System.out.println(intToRoman(i));
+
 		Scanner scan = new Scanner(System.in);
 		while (new Boolean(true)) {
 			String input = scan.next().toUpperCase(), output = input;
-//			if (Util.containsOnly(input, NUMERALS)) {
-//				output = String.valueOf(romanToInt(input));
-//			}
-//			else if (Util.isNumeric(input)) {
-				output = intToRoman(Integer.parseInt(input));
-//			}
+			//			if (Util.containsOnly(input, NUMERALS)) {
+			//				output = String.valueOf(romanToInt(input));
+			//			}
+			//			else if (Util.isNumeric(input)) {
+			output = intToRoman(Integer.parseInt(input));
+			//			}
 			System.out.println(output);
 		}
 		scan.close();
@@ -34,7 +35,7 @@ public class Roman {
 		if (number>=5000) return "";
 		StringBuilder sb = new StringBuilder();
 		int currentNum = number;
-		while (new Boolean(true)){
+		while (currentNum>0) {
 			for (int j = 0;j<VALUES_REVERSE.length;) {
 				if (currentNum>=VALUES_REVERSE[j]) {
 					sb.append(NUMERALS_REVERSE[j]);
@@ -42,23 +43,27 @@ public class Roman {
 				}
 				else j++;
 			}
-			int count = 0;
+			int count = 1;
 			for (int j = 1;j<sb.length();j++) {
 				if (sb.charAt(j)==sb.charAt(j-1)) count++;
-				if (count>=3) {
-//					int k = 0;
-//					for (;k<NUMERALS.length;k++) {
-//						if (NUMERALS[k]==sb.charAt(j)) break;
-//					}
-//					sb.replace(j-3, sb.length(), NUMERALS[k]+""+NUMERALS[k+1]);
-					
+				if (count>=4) {
+					System.out.println(j);
+					int k = 0;
+					for (;k<NUMERALS.length;k++) {
+						if (NUMERALS[k]==sb.charAt(j)) {
+							break;
+						}
+					}
+					int startIndex = j-3;
+					sb.replace(startIndex, j+1, NUMERALS[0]+""+NUMERALS[k+1]);
 				}
 			}
-			
-			
-			if (currentNum<=0) break;
-			
 		}
+
+
+
+
+
 		return sb.toString();
 	}
 
@@ -78,12 +83,12 @@ class Util {
 		for (int element:array) System.out.print(element+" ");
 		System.out.println();
 	}
-	
+
 	public static void printArray(char[] array) {
 		for (char element:array) System.out.print(element+" ");
 		System.out.println();
 	}
-	
+
 	public static int[] reverseOrder(int[] array) {
 		int[] temp = array.clone();
 		for (int i = temp.length-1, j = 0;i>=0;i--,j++) {
@@ -103,11 +108,11 @@ class Util {
 	public static void addToEnd(String str, String toAdd) {
 		str = str+toAdd;
 	}
-	
+
 	public static void addToBeginning(String str, String toAdd) {
 		str = toAdd+str;
 	}
-	
+
 	public static boolean containsOnly(String string, char[] potentialcontent) {
 		for (char character:string.toCharArray()) {
 			boolean contains = false;
@@ -120,7 +125,7 @@ class Util {
 		}
 		return true;
 	}
-	
+
 	public static boolean isNumeric(String string) {
 		for (char character:string.toCharArray()) {
 			if (!Character.isDigit(character)) return false;
