@@ -15,8 +15,7 @@ public class Generator {
 			for (int j = 0;j<Picker.GROUP_COUNT;j++) {
 				System.out.print(choices.get(j)+1+",");
 			}
-			
-			System.out.println((new Random().nextBoolean()&&new Random().nextBoolean())+";");
+			System.out.println(new Random().nextBoolean()+";");
 		}
 	}
 }

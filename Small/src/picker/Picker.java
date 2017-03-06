@@ -15,16 +15,19 @@ public class Picker {
 		Parser.parse(entities);
 		for (Entity entity:entities) System.out.println(entity);
 		
-		groups = findGroups(entities);
+		groups = findBestGroups(entities);
 	}
 	
-	public static List<ArrayList<Entity>> findGroups(List<Entity> entities) {
+	public static List<ArrayList<Entity>> findBestGroups(List<Entity> entities) {
 		final int groupSize = entities.size()/GROUP_COUNT;
-		
-		
-		
-		
-		
+		List<ArrayList<Entity>> working = new ArrayList<ArrayList<Entity>>();
+		for (int i = 0;i<entities.size();i++) {
+			for (int j = 0;j<entities.size();j++) {
+				for (int k = 0;k<entities.size();k++) {
+					
+				}
+			}
+		}
 		
 		return groups;
 		
