@@ -1,5 +1,7 @@
 package mirrorarray;
 
+import java.util.Random;
+
 public class ArrayThing {
 	
 	private static int[][] array;
