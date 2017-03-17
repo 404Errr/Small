@@ -1,0 +1,5 @@
+package anagram;
+
+class Anagram {
+
+}
