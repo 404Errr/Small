@@ -12,11 +12,13 @@ class Tester {
 		Scanner scan = new Scanner(System.in);
 		while (new Boolean(true)) {
 			String str = scan.next().toLowerCase();
+			long startTime = System.currentTimeMillis();
 			System.out.println();
-			List<String> anagrams = Anagram.getAnagrams(str);
+			List<String> anagrams = Anagram.findAnagrams(str);
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0;i<anagrams.size();i++) sb.append(anagrams.get(i)+"\n");
 			System.out.println(sb);
+			System.out.println((System.currentTimeMillis()-startTime)/1000f+" s\n");
 		}
 		scan.close();
 	}
@@ -35,9 +37,9 @@ public class Anagram {
 		}
 	}
 
-	public static List<String> getAnagrams(String string) {
+	public static List<String> findAnagrams(String string) {
 		List<String> anagrams = new ArrayList<>();
-		char[] stringChars = string.toCharArray();
+		final char[] stringChars = string.toCharArray();
 		for (int i = 0;i<dictionary.size();i++) {
 			if (dictionary.get(i).length()!=string.length()) continue;
 			List<Character> wordChars = new ArrayList<>();
