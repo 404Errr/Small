@@ -14,7 +14,8 @@ class Tester {
 			String str = scan.next().toLowerCase();
 			long startTime = System.currentTimeMillis();
 			System.out.println();
-			List<String> anagrams = Anagram.findAnagrams(str);
+//			List<String> anagrams = Anagram.findAnagrams(str, false);
+			List<String> anagrams = Anagram.findAnagrams(str, true);
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0;i<anagrams.size();i++) sb.append(anagrams.get(i)+"\n");
 			System.out.println(sb);
@@ -32,23 +33,20 @@ public class Anagram {
 		try {
 			dictionary = Files.readAllLines(Paths.get(DICTIONARY_PATH));
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		catch (IOException e) {}
 	}
 
-	public static List<String> findAnagrams(String string) {
+	public static List<String> findAnagrams(String string, boolean onlySameLength) {
 		List<String> anagrams = new ArrayList<>();
 		final char[] stringChars = string.toCharArray();
 		for (int i = 0;i<dictionary.size();i++) {
-			if (dictionary.get(i).length()!=string.length()) continue;
+			if (onlySameLength&&dictionary.get(i).length()!=string.length()||!onlySameLength&&dictionary.get(i).length()>string.length()) continue;
 			List<Character> wordChars = new ArrayList<>();
-			for (int j = 0;j<string.length();j++) wordChars.add(dictionary.get(i).charAt(j));
+			for (int j = 0;j<dictionary.get(i).length();j++) wordChars.add(dictionary.get(i).charAt(j));
 			for (int j = 0;j<stringChars.length;j++) wordChars.remove((Character) stringChars[j]);
 			if (wordChars.size()>0) continue;
 			anagrams.add(dictionary.get(i));
 		}
-
 		return anagrams;
 	}
 }
