@@ -1,6 +1,3 @@
-//https://github.com/dwyl/english-words
-//http://app.aspell.net/create
-
 package anagram;
 
 import java.io.IOException;
@@ -15,11 +12,11 @@ class Tester {
 		Scanner scan = new Scanner(System.in);
 		while (new Boolean(true)) {
 			String str = scan.next().toLowerCase();
-			System.out.println("\n");
+			System.out.println();
 			List<String> anagrams = Anagram.getAnagrams(str);
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0;i<anagrams.size();i++) sb.append(anagrams.get(i)+"\n");
-			System.out.println(sb+"\n");
+			System.out.println(sb);
 		}
 		scan.close();
 	}
@@ -39,52 +36,17 @@ public class Anagram {
 	}
 
 	public static List<String> getAnagrams(String string) {
-		for (int i = 0;i<string.length();i++) if (!Character.isAlphabetic(string.charAt(i))) throw new IllegalArgumentException("Input must me alphabetic");
-		List<String> anagrams = getStringPermutations(string);
-		anagrams = stripInvalid(anagrams);
-		if (!anagrams.contains(string)) anagrams.add(0, string);
+		List<String> anagrams = new ArrayList<>();
+		char[] stringChars = string.toCharArray();
+		for (int i = 0;i<dictionary.size();i++) {
+			if (dictionary.get(i).length()!=string.length()) continue;
+			List<Character> wordChars = new ArrayList<>();
+			for (int j = 0;j<string.length();j++) wordChars.add(dictionary.get(i).charAt(j));
+			for (int j = 0;j<stringChars.length;j++) wordChars.remove((Character) stringChars[j]);
+			if (wordChars.size()>0) continue;
+			anagrams.add(dictionary.get(i));
+		}
+
 		return anagrams;
-	}
-
-
-	private static List<String> getStringPermutations(String string) {
-		List<String> combos = new ArrayList<>();
-		char[] str = string.toCharArray();
-		int[] c = new int[string.length()];
-		for (int i = 0;i<string.length();i++) {
-			c[i] = 0;
-		}
-		combos.add(String.valueOf(str));
-		int i = 0;
-		while (i<string.length()) {
-			if (c[i]<i) {
-				if (i%2==0) str = swap(str, 0, i);
-				else str = swap(str, c[i], i);
-				if (!combos.contains(String.valueOf(str))) combos.add(String.valueOf(str));
-				c[i]++;
-				i = 0;
-			}
-			else {
-				c[i] = 0;
-				i++;
-			}
-		}
-		return combos;
-	}
-
-	private static char[] swap(char[] str, int i, int j) {
-		char temp = str[i];
-		str[i] = str[j];
-		str[j] = temp;
-		return str;
-	}
-
-	private static List<String> stripInvalid(List<String> strs) {
-		for (int i = strs.size()-1;i>=0;i--) {
-			if (!dictionary.contains(strs.get(i))) {
-				strs.remove(i);
-			}
-		}
-		return strs;
 	}
 }
