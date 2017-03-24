@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,18 @@ import util.Util;
 public class WordCounter {
 	
 	public static void main(String[] args) {
-		List<Counter> wordCount = countWords(fileToString("src/wordcounter/file"));
+//		String path = "src/wordcounter/file";
+		String path = "src/wordcounter/shake";
+		List<Counter> wordCount = countWords(fileToString(path));
 		for (int i = 0;i<wordCount.size();i++) {
 			System.out.println(wordCount.get(i));
 		}
+	}
+	
+	public static boolean validChar(char c) {
+		if (Character.isAlphabetic(c)) return true;
+		if (c=='-') return true;
+		return false;
 	}
 	
 	public static List<Counter> countWords(String str) {
@@ -28,24 +37,28 @@ public class WordCounter {
 			if (!rawWords.get(i).equals("")) {
 				StringBuilder word = new StringBuilder();
 				for (int j = 0;j<rawWords.get(i).length();j++) {
-					if (Character.isAlphabetic(rawWords.get(i).charAt(j))) {
+					if (validChar(rawWords.get(i).charAt(j))) {
 						word.append(rawWords.get(i).charAt(j));
 					}
 				}
-				words.add(word.toString()); 
-			}
-		}
-		System.out.println(words);
-		for (int i = 0;i<words.size();i++) {
-			if (!count.contains(words.get(i))) {
-				count.add(new Counter(words.get(i), 1));
+				words.add(word.toString().toLowerCase()); 
 			}
 		}
 		for (int i = 0;i<words.size();i++) {
-			count.get(count.indexOf(words.get(i))).incrementCount();
+			if (find(count, words.get(i))==-1) {
+				count.add(new Counter(words.get(i), 0));
+			}
 		}
-		System.out.println(str+"\n"+words);
+		for (int i = 0;i<words.size();i++) {
+			count.get(find(count, words.get(i))).incrementCount();
+		}
+		Collections.sort(count);
 		return count;
+	}
+	
+	private static int find(List<Counter> count, String string) {
+		for (int i = 0;i<count.size();i++) if (count.get(i).getString().equals(string)) return i;
+		return -1;
 	}
 	
 	public static String fileToString(String path) {

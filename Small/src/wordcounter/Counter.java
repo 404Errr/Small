@@ -1,6 +1,6 @@
 package wordcounter;
 
-public	class Counter {
+public class Counter implements Comparable<Counter> {
 	String string;
 	int count;
 	
@@ -28,5 +28,10 @@ public	class Counter {
 	@Override
 	public String toString() {
 		return string+"\t"+count;
+	}
+
+	@Override
+	public int compareTo(Counter that) {
+		return this.getString().compareTo(that.getString());
 	}
 }
