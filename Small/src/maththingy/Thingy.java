@@ -1,4 +1,4 @@
-package thingy;
+package maththingy;
 
 import java.awt.Color;
 import java.awt.Dimension;

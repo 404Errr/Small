@@ -15,32 +15,36 @@ import util.Util;
 public class WordCounter {
 	
 	public static void main(String[] args) {
-		Map<String, Integer> wordCount = countWords(fileToString("src/wordcounter/file"));
+		List<Counter> wordCount = countWords(fileToString("src/wordcounter/file"));
+		for (int i = 0;i<wordCount.size();i++) {
+			System.out.println(wordCount.get(i));
+		}
 	}
 	
-	public static Map<String, Integer> countWords(String str) {
-		Map<String, Integer> count = new TreeMap<String, Integer>();
+	public static List<Counter> countWords(String str) {
+		List<Counter> count = new ArrayList<>();
 		List<String> rawWords = Arrays.asList(str.split(" ")), words = new ArrayList<>();
 		for (int i = 0;i<rawWords.size();i++) {
-//			if (!rawWords.get(i).equals("")) {
-				words.add(rawWords.get(i)); 
-//			}
-		}
-		
-		for (int i = 0;i<words.size();i++) {
-			if (count.containsKey(words.get(i))) {
-				//TODO
-			}
-			else {
-				count.put(words.get(i), 1);
+			if (!rawWords.get(i).equals("")) {
+				StringBuilder word = new StringBuilder();
+				for (int j = 0;j<rawWords.get(i).length();j++) {
+					if (Character.isAlphabetic(rawWords.get(i).charAt(j))) {
+						word.append(rawWords.get(i).charAt(j));
+					}
+				}
+				words.add(word.toString()); 
 			}
 		}
-		
-		System.out.println(str);
 		System.out.println(words);
-		
-		
-		
+		for (int i = 0;i<words.size();i++) {
+			if (!count.contains(words.get(i))) {
+				count.add(new Counter(words.get(i), 1));
+			}
+		}
+		for (int i = 0;i<words.size();i++) {
+			count.get(count.indexOf(words.get(i))).incrementCount();
+		}
+		System.out.println(str+"\n"+words);
 		return count;
 	}
 	
@@ -66,3 +70,5 @@ public class WordCounter {
 		return null;
 	}
 }
+
+
