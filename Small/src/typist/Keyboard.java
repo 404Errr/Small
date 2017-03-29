@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 public class Keyboard {
 	private static String type =
-			""
+			"The brown current ran swiftly out of the heart of darkness, bearing us down towards the sea with twice the speed of our upward progress; and Kurtz's life was running swiftly too, ebbing, ebbing out of his heart into the sea of inexorable time."
 	;
 
 	private Robot bot;

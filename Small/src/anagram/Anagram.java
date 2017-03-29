@@ -11,15 +11,16 @@ class Tester {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		while (new Boolean(true)) {
-			String str = scan.next().toLowerCase();
-			long startTime = System.currentTimeMillis();
+			String str = scan.nextLine().toLowerCase();
+//			long startTime = System.currentTimeMillis();
 			System.out.println();
 //			List<String> anagrams = Anagram.findAnagrams(str, false);
-			List<String> anagrams = Anagram.findAnagrams(str, true);
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0;i<anagrams.size();i++) sb.append(anagrams.get(i)+"\n");
-			System.out.println(sb);
-			System.out.println((System.currentTimeMillis()-startTime)/1000f+" s\n");
+//			List<String> anagrams = Anagram.findAnagrams(str, true);
+			List<String> anagrams = Anagram.findAnagramsSpaces(str);
+//			StringBuilder sb = new StringBuilder();
+//			for (int i = 0;i<anagrams.size();i++) sb.append(anagrams.get(i)+"\n");
+//			System.out.println(sb);
+//			System.out.println((System.currentTimeMillis()-startTime)/1000f+" s\n");
 		}
 		scan.close();
 	}
@@ -36,6 +37,28 @@ public class Anagram {
 		catch (IOException e) {}
 	}
 
+	public static List<String> findAnagramsSpaces(String string) {
+		List<String> anagrams = new ArrayList<>();
+		List<Character> stringChars = new ArrayList<>();
+		for (char c:string.toCharArray()) if (c!=' ') stringChars.add(c);
+//		final char[] stringChars = string.toCharArray();
+		System.out.print("stringChars\t"+stringChars);
+//		
+//		
+//		List<Integer> k = new ArrayList<>();
+//		final int maxSpaces = string.length()/2;
+//		for (int spaceCount = 0;spaceCount<maxSpaces;spaceCount++) {
+//			String str = "";
+//			for (int i = 0;i<spaceCount;i++) str+=" ";
+//			while (str.length()<string.length()) k.add(0);
+//			List<Character> chars = new ArrayList<>();
+//			for (char c:str.toCharArray()) chars.add(c);
+//		}
+		
+		
+		return anagrams;
+	}
+	
 	public static List<String> findAnagrams(String string, boolean onlySameLength) {
 		List<String> anagrams = new ArrayList<>();
 		final char[] stringChars = string.toCharArray();
