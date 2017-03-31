@@ -1,138 +1,52 @@
 package roman;
 
-import java.util.Scanner;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Roman {
-	public static final char[] NUMERALS = 	{'I', 'V', 'X', 'L', 'C', 'D', 'M'};
-	public static final char[] NUMERALS_REVERSE = Util.reverseOrder(NUMERALS);
-	public static final int[] VALUES = 		{  1,   5,  10,  50, 100, 500, 1000};
-	public static final int[] VALUES_REVERSE = Util.reverseOrder(VALUES);
-
 	public static void main(String[] args) {
-
-		//		Util.printArray(NUMERALS);
-		//		Util.printArray(NUMERALS_REVERSE);
-		//		Util.printArray(VALUES);
-		//		Util.printArray(VALUES_REVERSE);
-
-		for (int i = 0;i<100;i++) System.out.println(intToRoman(i));
-
-		Scanner scan = new Scanner(System.in);
-		while (new Boolean(true)) {
-			String input = scan.next().toUpperCase(), output = input;
-			//			if (Util.containsOnly(input, NUMERALS)) {
-			//				output = String.valueOf(romanToInt(input));
-			//			}
-			//			else if (Util.isNumeric(input)) {
-			output = intToRoman(Integer.parseInt(input));
-			//			}
-			System.out.println(output);
+		for (int i = 4999;i>0;i--) {
+			String roman = intToRoman(i);
+			System.out.println(i+"\t"+roman+"\t"+romanToInt(roman));
 		}
-		scan.close();
 	}
 
-	public static String intToRoman(int number) {
-		if (number>=5000) return "";
-		StringBuilder sb = new StringBuilder();
-		int currentNum = number;
-		while (currentNum>0) {
-			for (int j = 0;j<VALUES_REVERSE.length;) {
-				if (currentNum>=VALUES_REVERSE[j]) {
-					sb.append(NUMERALS_REVERSE[j]);
-					currentNum-=VALUES_REVERSE[j];
-				}
-				else j++;
-			}
-			int count = 1;
-			for (int j = 1;j<sb.length();j++) {
-				if (sb.charAt(j)==sb.charAt(j-1)) count++;
-				if (count>=4) {
-					System.out.println(j);
-					int k = 0;
-					for (;k<NUMERALS.length;k++) {
-						if (NUMERALS[k]==sb.charAt(j)) {
-							break;
-						}
-					}
-					int startIndex = j-3;
-					sb.replace(startIndex, j+1, NUMERALS[0]+""+NUMERALS[k+1]);
-				}
-			}
+	private static final TreeMap<Integer, String> numerals = new TreeMap<>();
+	private static final char[] NUMERAL_CHARS = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+
+	static {
+		boolean p = true;
+		for (int i = 1, pI = 0;i<NUMERAL_CHARS.length*2;i++, pI+=(i%5==0)?2:0) {
+			numerals.put((int) (Math.pow(10,(((i-1)/4)+1)-1)*new int[] {1, 4, 5, 9}[(i-1)%4]), ((p=!p)?NUMERAL_CHARS[pI]:"")+""+NUMERAL_CHARS[i/2]);
 		}
+	}
 
+	private static int MIN_VALUE = 1, MAX_VALUE = 4999;
+	public static String intToRoman(int num) {
+		if (num<MIN_VALUE||num>MAX_VALUE) throw new IllegalArgumentException("Number must be between "+MIN_VALUE+" and "+MAX_VALUE);
+		return toRoman(num);
+	}
 
-
-
-
-		return sb.toString();
+	private static String toRoman(int number) {
+		int lower = numerals.floorKey(number);
+		if (number==lower) return numerals.get(number);
+		return numerals.get(lower)+toRoman(number-lower);
 	}
 
 	public static int romanToInt(String roman) {
-
-
-
-
-		return 0;
+		roman = roman.toUpperCase();
+		int number = fromRoman(roman);
+		if (number==-1) throw new IllegalArgumentException("\""+roman+"\" is invalid");
+		return number;
 	}
 
-
-}
-
-class Util {
-	public static void printArray(int[] array) {
-		for (int element:array) System.out.print(element+" ");
-		System.out.println();
-	}
-
-	public static void printArray(char[] array) {
-		for (char element:array) System.out.print(element+" ");
-		System.out.println();
-	}
-
-	public static int[] reverseOrder(int[] array) {
-		int[] temp = array.clone();
-		for (int i = temp.length-1, j = 0;i>=0;i--,j++) {
-			temp[i] = array[j];
-		}
-		return temp;
-	}
-
-	public static char[] reverseOrder(char[] array) {
-		char[] temp = array.clone();
-		for (int i = temp.length-1, j = 0;i>=0;i--,j++) {
-			temp[i] = array[j];
-		}
-		return temp;
-	}
-
-	public static void addToEnd(String str, String toAdd) {
-		str = str+toAdd;
-	}
-
-	public static void addToBeginning(String str, String toAdd) {
-		str = toAdd+str;
-	}
-
-	public static boolean containsOnly(String string, char[] potentialcontent) {
-		for (char character:string.toCharArray()) {
-			boolean contains = false;
-			for (char potentialMatch:potentialcontent) {
-				if (character==potentialMatch) {
-					contains = true;
-				}
+	private static int fromRoman(String roman) {
+		if (roman.isEmpty()) return 0;
+		for (Map.Entry<Integer, String> set:numerals.descendingMap().entrySet()) {
+			if (roman.startsWith(set.getValue())) {
+				return set.getKey()+fromRoman(roman.substring(set.getValue().length()));
 			}
-			if (!contains) return false;
 		}
-		return true;
-	}
-
-	public static boolean isNumeric(String string) {
-		for (char character:string.toCharArray()) {
-			if (!Character.isDigit(character)) return false;
-		}
-		return true;
+		return -1;
 	}
 }
-
-
-

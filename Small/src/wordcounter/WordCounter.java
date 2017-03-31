@@ -30,7 +30,7 @@ public class WordCounter {
 	
 	public static boolean validChar(char c) {
 		if (Character.isAlphabetic(c)) return true;
-//		if (c=='-') return true;
+		if (c=='-') return true;
 		return false;
 	}
 	
