@@ -20,8 +20,37 @@ public class FindLines {
 //		List<String> names = new ArrayList<>();for (int i = 0;i<NAMES.length;i++) if (!names.contains(NAMES[i])) names.add(NAMES[i]);Collections.sort(names);for (int i = 0;i<names.size();i++) System.out.print("\""+names.get(i).toUpperCase()+"\", ");
 		String play = fileToString(path);
 		List<Line> lines = getLines(play);
-		System.out.println("\n\n"+lines);
+		List<Line> filtered = filterLines(lines, WORD);
+		print(filtered, WORD);
 		System.out.println(((System.currentTimeMillis()-startTime)/1000f)+"\n\n");
+	}
+
+	private static final boolean HIGHLIGHT = true;
+	private static void print(List<Line> lines, String word) {
+		StringBuilder str = new StringBuilder();
+		for (int i = 0;i<lines.size();i++) {
+			Line line = lines.get(i);
+			String location = "["+intToRoman(line.getLocation()[0])+", "+line.getLocation()[1]+"]";
+			String name = line.getSpeaker().toUpperCase().charAt(0)+line.getSpeaker().toLowerCase().substring(1);
+			str.append(location+" "+name+"\n");
+			for (int j = 0;j<line.getLines().size();j++) {
+				if (j==0) str.append(line.getLines().get(j).getLineNumber());
+				str.append("\t");
+				String lineLine = line.getLines().get(j).getContent();
+				if (HIGHLIGHT) lineLine.replaceAll(word, word.toUpperCase());
+				str.append(lineLine+"\n");
+			}
+			str.append("\n");
+		}
+		System.out.println(str.toString());
+	}
+
+	private static List<Line> filterLines(List<Line> lines, String word) {
+		List<Line> filtered = new ArrayList<>();
+		for (int i = 0;i<lines.size();i++) {
+			if (lines.get(i).find(word)) filtered.add(lines.get(i));
+		}
+		return filtered;
 	}
 
 	private static List<Line> getLines(String play) {
@@ -49,12 +78,10 @@ public class FindLines {
 					if (validNumeral(fileLines.get(i).charAt(j))) numeral+=fileLines.get(i).charAt(j);
 				}
 				currentLocation[isSeperator] = romanToInt(numeral);
-				System.out.println(numeral);
 				if (isSeperator==0) {
 					currentLocation[1] = 1;
 					lineNumber = 1;
 				}
-				System.out.println(fileLines.get(i)+"\n"+Arrays.toString(currentLocation));
 				continue;
 			}
 			if (isName(fileLines.get(i))!=-1) {
@@ -62,6 +89,7 @@ public class FindLines {
 				lines.add(currentLine);
 				continue;
 			}
+			if (fileLines.get(i).contains("Exit")||fileLines.get(i).contains("Enter")) continue;
 			if (currentLine!=null) {
 				currentLine.addContent(fileLines.get(i), lineNumber);
 				lineNumber++;
@@ -69,10 +97,6 @@ public class FindLines {
 		}
 		return lines;
 	}
-//
-//	private static boolean isUpper(String word) {
-//		return word.length()>1&&word.toUpperCase().equals(word);
-//	}
 
 	private static int isName(String word) {
 		for (int i = 0;i<NAMES.length;i++) if (word.equals(NAMES[i])) return i;
@@ -175,6 +199,15 @@ class Line {
 		this.location = location;
 		this.speaker = speaker;
 		content = new ArrayList<>();
+	}
+
+	public boolean find(String word) {
+		for (int i = 0;i<content.size();i++) {
+			if (content.get(i).getContent().contains(word)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addContent(String line, int lineNumber) {
