@@ -3,7 +3,7 @@ package findlines;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class FindLines {
 	private static final String WORD = "honest";
 	private static final String[] LOCATION_SEPERATOR = {"ACT", "SCENE"};
-	private static final String[] NAMES = {"BIANCA", "BRABANTIO", "CASSIO", "DESDEMONA", "EMILIA", "GRATIANO", "IAGO", "LODOVICO", "MONTANO", "OTHELLO", "RODERIGO"};
+	private static final String[] NAMES = {"FIRST GENTLEMEN", "SECOND GENTLEMEN", "THIRD GENTLEMEN", "FOURTH GENTLEMEN", "FIRST SENATOR", "DUKE OF VENICE", "CLOWN", "BIANCA", "BRABANTIO", "CASSIO", "DESDEMONA", "EMILIA", "GRATIANO", "IAGO", "LODOVICO", "MONTANO", "OTHELLO", "RODERIGO"};
 	private static String path = "src/findlines/othello";
 
 	public static void main(String[] args) {
@@ -21,11 +21,37 @@ public class FindLines {
 		String play = fileToString(path);
 		List<Line> lines = getLines(play);
 		List<Line> filtered = filterLines(lines, WORD);
+		List<Counter> counted = count(filtered, NAMES);
 		print(filtered, WORD);
+		print(counted);
 		System.out.println(((System.currentTimeMillis()-startTime)/1000f)+"\n\n");
 	}
 
-	private static final boolean HIGHLIGHT = true;
+	private static void print(List<Counter> count) {
+		StringBuilder str = new StringBuilder();
+		for (int i = 0;i<count.size();i++) {
+			if (count.get(i).getCount()>0) str.append(count.get(i).getCount()+"\t"+count.get(i).getName()+"\n");
+		}
+		System.out.println(str.toString());
+	}
+
+	private static List<Counter> count(List<Line> lines, String[] names) {
+		int total = 0;
+		List<Counter> count = new ArrayList<>();
+		for (int i = 0;i<names.length;i++) {
+			count.add(new Counter(names[i]));
+			for (int j = 0;j<lines.size();j++) {
+				if (lines.get(j).getSpeaker().equals(count.get(i).getName())) {
+					count.get(i).addCount();
+					total++;
+				}
+			}
+		}
+		System.out.println("totalLineCount = "+total);
+		Collections.sort(count);
+		return count;
+	}
+	
 	private static void print(List<Line> lines, String word) {
 		StringBuilder str = new StringBuilder();
 		for (int i = 0;i<lines.size();i++) {
@@ -37,7 +63,6 @@ public class FindLines {
 				if (j==0) str.append(line.getLines().get(j).getLineNumber());
 				str.append("\t");
 				String lineLine = line.getLines().get(j).getContent();
-				if (HIGHLIGHT) lineLine.replaceAll(word, word.toUpperCase());
 				str.append(lineLine+"\n");
 			}
 			str.append("\n");
@@ -85,11 +110,22 @@ public class FindLines {
 				continue;
 			}
 			if (isName(fileLines.get(i))!=-1) {
+				final String nameLine = fileLines.get(i)+"";
+				int end = nameLine.indexOf(' ');
+				if (end!=-1) {
+					fileLines.set(i, nameLine.substring(end));
+					fileLines.add(i, nameLine.substring(0, end));
+				}
 				currentLine = new Line(getCopy(currentLocation), fileLines.get(i));
 				lines.add(currentLine);
 				continue;
 			}
-			if (fileLines.get(i).contains("Exit")||fileLines.get(i).contains("Enter")) continue;
+			if (fileLines.get(i).contains("Exit")) continue;
+			if (fileLines.get(i).contains("Enter")) continue;
+			if (fileLines.get(i).contains("exit")) continue;
+			if (fileLines.get(i).contains("enter")) continue;
+			if (fileLines.get(i).contains("Exeunt")) continue;
+			if (fileLines.get(i).contains("exeunt")) continue;
 			if (currentLine!=null) {
 				currentLine.addContent(fileLines.get(i), lineNumber);
 				lineNumber++;
@@ -99,7 +135,7 @@ public class FindLines {
 	}
 
 	private static int isName(String word) {
-		for (int i = 0;i<NAMES.length;i++) if (word.equals(NAMES[i])) return i;
+		for (int i = 0;i<NAMES.length;i++) if (word.startsWith(NAMES[i])) return i;
 		return -1;
 	}
 
@@ -190,6 +226,34 @@ public class FindLines {
 	}
 }
 
+class Counter implements Comparable<Counter> {
+	private String name;
+	private int count;
+	
+	public Counter(String name) {
+		this.name = name;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	
+	public void addCount() {
+		count++;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public int compareTo(Counter that) {
+		if (this.getCount()<that.getCount()) return 1;
+		if (this.getCount()>that.getCount()) return -1;
+		return 0;
+	}
+}
+
 class Line {
 	private int[] location;//act, scene
 	private String speaker;
@@ -203,7 +267,7 @@ class Line {
 
 	public boolean find(String word) {
 		for (int i = 0;i<content.size();i++) {
-			if (content.get(i).getContent().contains(word)) {
+			if (content.get(i).getContent().toLowerCase().contains(word)) {
 				return true;
 			}
 		}
