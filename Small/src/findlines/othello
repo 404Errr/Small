@@ -423,7 +423,7 @@ The DUKE and Senators sitting at a table; Officers attending
 DUKE OF VENICE
 There is no composition in these news
 That gives them credit.
-First Senator
+FIRST SENATOR
 Indeed, they are disproportion'd;
 My letters say a hundred and seven galleys.
 DUKE OF VENICE
@@ -453,7 +453,7 @@ So was I bid report here to the state
 By Signior Angelo.
 DUKE OF VENICE
 How say you by this change?
-First Senator
+FIRST SENATOR
 This cannot be,
 By no assay of reason: 'tis a pageant,
 To keep us in false gaze. When we consider
@@ -478,7 +478,7 @@ Messenger
 The Ottomites, reverend and gracious,
 Steering with due course towards the isle of Rhodes,
 Have there injointed them with an after fleet.
-First Senator
+FIRST SENATOR
 Ay, so I thought. How many, as you guess?
 Messenger
 Of thirty sail: and now they do restem
@@ -490,11 +490,11 @@ And prays you to believe him.
 DUKE OF VENICE
 'Tis certain, then, for Cyprus.
 Marcus Luccicos, is not he in town?
-First Senator
+FIRST SENATOR
 He's now in Florence.
 DUKE OF VENICE
 Write from us to him; post-post-haste dispatch.
-First Senator
+FIRST SENATOR
 Here comes Brabantio and the valiant Moor.
 Enter BRABANTIO, OTHELLO, IAGO, RODERIGO, and Officers
 
@@ -583,7 +583,7 @@ To vouch this, is no proof,
 Without more wider and more overt test
 Than these thin habits and poor likelihoods
 Of modern seeming do prefer against him.
-First Senator
+FIRST SENATOR
 But, Othello, speak:
 Did you by indirect and forced courses
 Subdue and poison this young maid's affections?
@@ -785,7 +785,7 @@ DUKE OF VENICE
 Be it as you shall privately determine,
 Either for her stay or going: the affair cries haste,
 And speed must answer it.
-First Senator
+FIRST SENATOR
 You must away to-night.
 OTHELLO
 With all my heart.
@@ -809,7 +809,7 @@ To BRABANTIO
 And, noble signior,
 If virtue no delighted beauty lack,
 Your son-in-law is far more fair than black.
-First Senator
+FIRST SENATOR
 Adieu, brave Moor, use Desdemona well.
 BRABANTIO
 Look to her, Moor, if thou hast eyes to see:
@@ -960,7 +960,7 @@ SCENE I. A Sea-port in Cyprus. An open place near the quay.
 Enter MONTANO and two Gentlemen
 MONTANO
 What from the cape can you discern at sea?
-First Gentleman
+FIRST GENTLEMAN
 Nothing at all: it is a highwrought flood;
 I cannot, 'twixt the heaven and the main,
 Descry a sail.
@@ -970,7 +970,7 @@ A fuller blast ne'er shook our battlements:
 If it hath ruffian'd so upon the sea,
 What ribs of oak, when mountains melt on them,
 Can hold the mortise? What shall we hear of this?
-Second Gentleman
+SECOND GENTLEMAN
 A segregation of the Turkish fleet:
 For do but stand upon the foaming shore,
 The chidden billow seems to pelt the clouds;
@@ -985,7 +985,7 @@ Be not enshelter'd and embay'd, they are drown'd:
 It is impossible they bear it out.
 Enter a third Gentleman
 
-Third Gentleman
+THIRD GENTLEMAN
 News, lads! our wars are done.
 The desperate tempest hath so bang'd the Turks,
 That their designment halts: a noble ship of Venice
@@ -993,7 +993,7 @@ Hath seen a grievous wreck and sufferance
 On most part of their fleet.
 MONTANO
 How! is this true?
-Third Gentleman
+THIRD GENTLEMAN
 The ship is here put in,
 A Veronesa; Michael Cassio,
 Lieutenant to the warlike Moor Othello,
@@ -1001,7 +1001,7 @@ Is come on shore: the Moor himself at sea,
 And is in full commission here for Cyprus.
 MONTANO
 I am glad on't; 'tis a worthy governor.
-Third Gentleman
+THIRD GENTLEMAN
 But this same Cassio, though he speak of comfort
 Touching the Turkish loss, yet he looks sadly,
 And prays the Moor be safe; for they were parted
@@ -1014,7 +1014,7 @@ As well to see the vessel that's come in
 As to throw out our eyes for brave Othello,
 Even till we make the main and the aerial blue
 An indistinct regard.
-Third Gentleman
+THIRD GENTLEMAN
 Come, let's do so:
 For every minute is expectancy
 Of more arrivance.
@@ -1034,24 +1034,24 @@ Therefore my hopes, not surfeited to death,
 Stand in bold cure.
 A cry within 'A sail, a sail, a sail!'
 
-Enter a fourth Gentleman
+Enter a FOURTH GENTLEMAN
 
 CASSIO
 What noise?
-Fourth Gentleman
+FOURTH GENTLEMAN
 The town is empty; on the brow o' the sea
 Stand ranks of people, and they cry 'A sail!'
 CASSIO
 My hopes do shape him for the governor.
 Guns heard
 
-Second Gentlemen
+SECOND GENTLEMEN
 They do discharge their shot of courtesy:
 Our friends at least.
 CASSIO
 I pray you, sir, go forth,
 And give us truth who 'tis that is arrived.
-Second Gentleman
+SECOND GENTLEMAN
 I shall.
 Exit
 
@@ -1066,7 +1066,7 @@ Does tire the ingener.
 Re-enter second Gentleman
 
 How now! who has put in?
-Second Gentleman
+SECOND GENTLEMAN
 'Tis one Iago, ancient to the general.
 CASSIO
 Has had most favourable and happy speed:
@@ -1109,7 +1109,7 @@ The great contention of the sea and skies
 Parted our fellowship--But, hark! a sail.
 Within 'A sail, a sail!' Guns heard
 
-Second Gentleman
+SECOND GENTLEMAN
 They give their greeting to the citadel;
 This likewise is a friend.
 CASSIO
@@ -1905,7 +1905,7 @@ I am desperate of my fortunes if they cheque me here.
 IAGO
 You are in the right. Good night, lieutenant; I
 must to the watch.
-CASSIO: Good night, honest Iago.
+CASSIO Good night, honest Iago.
 Exit
 
 IAGO
@@ -1981,42 +1981,42 @@ Masters, play here; I will content your pains;
 Something that's brief; and bid 'Good morrow, general.'
 Music
 
-Enter Clown
+Enter CLOWN
 
-Clown
+CLOWN
 Why masters, have your instruments been in Naples,
 that they speak i' the nose thus?
 First Musician
 How, sir, how!
-Clown
+CLOWN
 Are these, I pray you, wind-instruments?
 First Musician
 Ay, marry, are they, sir.
-Clown
+CLOWN
 O, thereby hangs a tail.
 First Musician
 Whereby hangs a tale, sir?
-Clown
+CLOWN
 Marry. sir, by many a wind-instrument that I know.
 But, masters, here's money for you: and the general
 so likes your music, that he desires you, for love's
 sake, to make no more noise with it.
 First Musician
 Well, sir, we will not.
-Clown
+CLOWN
 If you have any music that may not be heard, to't
 again: but, as they say to hear music the general
 does not greatly care.
 First Musician
 We have none such, sir.
-Clown
+CLOWN
 Then put up your pipes in your bag, for I'll away:
 go; vanish into air; away!
 Exeunt Musicians
 
 CASSIO
 Dost thou hear, my honest friend?
-Clown
+CLOWN
 No, I hear not your honest friend; I hear you.
 CASSIO
 Prithee, keep up thy quillets. There's a poor piece
@@ -2024,12 +2024,12 @@ of gold for thee: if the gentlewoman that attends
 the general's wife be stirring, tell her there's
 one Cassio entreats her a little favour of speech:
 wilt thou do this?
-Clown
+CLOWN
 She is stirring, sir: if she will stir hither, I
 shall seem to notify unto her.
 CASSIO
 Do, good my friend.
-Exit Clown
+Exit CLOWN
 
 Enter IAGO
 
@@ -2824,35 +2824,35 @@ Exeunt
 
 SCENE IV. Before the castle.
 
-Enter DESDEMONA, EMILIA, and Clown
+Enter DESDEMONA, EMILIA, and CLOWN
 DESDEMONA
 Do you know, sirrah, where Lieutenant Cassio lies?
-Clown
+CLOWN
 I dare not say he lies any where.
 DESDEMONA
 Why, man?
-Clown
+CLOWN
 He's a soldier, and for one to say a soldier lies,
 is stabbing.
 DESDEMONA
 Go to: where lodges he?
-Clown
+CLOWN
 To tell you where he lodges, is to tell you where I lie.
 DESDEMONA
 Can any thing be made of this?
-Clown
+CLOWN
 I know not where he lodges, and for me to devise a
 lodging and say he lies here or he lies there, were
 to lie in mine own throat.
 DESDEMONA
 Can you inquire him out, and be edified by report?
-Clown
+CLOWN
 I will catechise the world for him; that is, make
 questions, and by them answer.
 DESDEMONA
 Seek him, bid him come hither: tell him I have
 moved my lord on his behalf, and hope all will be well.
-Clown
+CLOWN
 To do this is within the compass of man's wit: and
 therefore I will attempt the doing it.
 Exit
