@@ -1,5 +1,6 @@
 package cubemaker;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class CubeMaker {
@@ -12,49 +13,51 @@ public class CubeMaker {
 		make();
 	}
 	
+	
+	
+	
+	
 	public static void make() {
 		int[][][] cube = null;
-		int totalCount = 0, currentCount = 0, currentColor = 0;
+		int totalCount = 0, currentCount = 0, currentColor = 1;
 		boolean invalid = true;
-		int[] current = {0, 0, 0};
-		while (totalCount<=27) {
+		Coord c = new Coord();
+		while (true) {//totalCount<=27) {
+			System.out.println(c);
 			if (invalid) {
-				cube = new int[SIZE][SIZE][SIZE];
-				for (int z = 0;z<cube.length;z++)
-					for (int y = 0;y<cube[0].length;y++)
-						for (int x = 0;x<cube[0][0].length;x++)
-							cube[z][y][x] = -1;
+				c.reset();
+				
+				System.out.println("invalid");
 				totalCount = 0;
 				currentCount = 0;
-				currentColor = 0;
+				currentColor = 1;
 				invalid = false;
 			}
-			boolean acted = false;
 			int attempts = 0;
-			while (!acted) {hey look over here!!!
-				if (r(6)&&current[Z]>0) {//TODO check if its -1
-					acted = true;
-					current[Z]--;
+			while (true) {
+				if (inBounds(c.getZ()-1)&&cube[c.getZ()-1][c[Y]][c[X]]==-1&&r(6)) {
+					c.setZ(c.getZ()-1);
+					break;
 				}
-				if (r(6)&&current[Y]>0) {
-					acted = true;
-					current[Y]--;
+				if (inBounds(c[Y]-1)&&cube[c[Z]][c[Y]-1][c[X]]==-1&&r(6)) {
+					c[Y]--;
+					break;
 				}
-				if (r(6)&&current[X]>0) {
-					acted = true;
-					current[X]--;
+				if (inBounds(c[X]-1)&&cube[c[Z]][c[Y]][c[X]-1]==-1&&r(6)) {
+					c[X]--;
+					break;
 				}
-				if (r(6)&&current[Z]<cube.length-1) {
-					acted = true;
-					current[Z]--;
+				if (inBounds(c[Z]+1)&&cube[c[Z]+1][c[Y]][c[X]]==-1&&r(6)) {
+					c[Z]++;
+					break;
 				}
-				if (r(6)&&current[Y]<cube[0].length-1) {
-					acted = true;
-					current[Y]--;
+				if (inBounds(c[Y]+1)&&cube[c[Z]][c[Y]+1][c[X]]==-1&&r(6)) {
+					c[Y]++;
+					break;
 				}
-				if (r(6)&&current[X]<cube[0][0].length-1) {
-					acted = true;
-					current[X]--;
+				if (inBounds(c[X]+1)&&cube[c[Z]][c[Y]][c[X]+1]==-1&&r(6)) {
+					c[X]++;
+					break;
 				}
 				if (attempts>100) {
 					invalid = true;
@@ -62,21 +65,51 @@ public class CubeMaker {
 				}
 				attempts++;
 			}
-			
-			
-			current[Z][Y][X] = currentColor;
-			
-			
-			if (currentCount>rand.nextInt(3)+4) {
-				currentColor++;
-			}
-			if (currentColor>5) invalid = true;
+			cube[c[Z]][c[Y]][c[X]] = currentColor;
 			currentCount++;
-			totalCount++;
+			if (currentCount>5) {
+				currentColor++;
+				currentCount = 0;
+			}
+//			totalCount++;
+//			if (currentCount>rand.nextInt(3)+4) {
+//				currentColor++;
+//				currentCount = 0;
+//				if (currentColor>5) invalid = true;
+//			}
+			System.out.println("currentCount = "+currentCount+"\ttotalCount = "+totalCount+"\tcolor = "+currentColor); 
+			print(cube);
 		}
 	}
 	
+	private static boolean inBounds(int val) {
+		return !(val<0||val>SIZE-1);
+	}
+	
+//	private static boolean inBounds(int x, int y, int z) {
+//		return !(x<0||y<0||z<0||x>=SIZE-1||y>=SIZE-1||z>=SIZE-1);
+//	}
+	
 	private static boolean r(int choices) {
 		return rand.nextInt(choices)==0;
+	}
+	
+	private static void print(int[][][] array) {
+		StringBuilder str = new StringBuilder();
+		for (int z = 0;z<array.length;z++) {
+			for (int y = 0;y<array[0].length;y++) {
+				for (int x = 0;x<array[0][0].length;x++) {
+					if (array[z][y][x]==-1) str.append("0");
+					else str.append(array[z][y][x]);
+				}
+				str.append("\n");
+			}
+			if (z<array.length-1) {
+				for (int i = 0;i<array[0][0].length;i++) str.append("-");
+				str.append("\n");
+			}
+		}
+		System.out.println(str.toString());
+		
 	}
 }
